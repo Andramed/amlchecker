@@ -34,12 +34,12 @@ const AmlCheckPassed = () => {
         </div>
       </div>
 
-      <button
+      {/* <button
         onClick={() => alert("Next steps...")}
         className="w-full py-3 px-4 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition"
       >
         Proceed
-      </button>
+      </button> */}
     </div>
   );
 };

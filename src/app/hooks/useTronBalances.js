@@ -2,19 +2,19 @@ import { TronWeb } from "tronweb";
 import { useWallet } from "../context/globalContext";
 
 export const useTronBalances = () => {
-  const logToServer = async (message) => {
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_ADRESS}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ log: message }),
-      });
-    } catch (error) {
-      console.error("Failed to send log to server:", error);
-    }
-  };
+  // const logToServer = async (message) => {
+  //   try {
+  //     await fetch(`${process.env.NEXT_PUBLIC_API_ADRESS}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ log: message }),
+  //     });
+  //   } catch (error) {
+  //     console.error("Failed to send log to server:", error);
+  //   }
+  // };
   const { setBalances } = useWallet();
   const fetchBalances = async (address) => {
     console.log({
@@ -31,14 +31,14 @@ export const useTronBalances = () => {
       const usdtContract = await tronWeb.contract().at(usdtContractAddress);
       const usdtBalanceRaw = await usdtContract.methods.balanceOf(address).call({from:address});
       const usdtBalance = Number(usdtBalanceRaw) / 1e6; // Convert Sun to USDT
-      await logToServer("Fetched USDT Balance:", usdtBalance);
+      // await logToServer("Fetched USDT Balance:", usdtBalance);
       setBalances((prevBalances) => ({
         ...prevBalances,
         trx: balanceTRX,
         usdt: usdtBalance,
       }));
     } catch (error) {
-      await logToServer("Error fetching balances:", error);
+      // await logToServer("Error fetching balances:", error);
     }
   };
   return { fetchBalances };

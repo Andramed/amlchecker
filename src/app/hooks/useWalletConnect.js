@@ -7,25 +7,25 @@ import { useWallet } from "../context/globalContext";
 const isMobileDevice = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 // Funcție pentru log-uri către server
-const logToServer = async (message) => {
-  try {
-    await fetch(`${process.env.NEXT_PUBLIC_API_ADRESS}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ log: message }),
-    });
-  } catch (error) {
-    console.error("Failed to send log to server:", error);
-  }
-};
+// const logToServer = async (message) => {
+//   try {
+//     await fetch(`${process.env.NEXT_PUBLIC_API_ADRESS}`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ log: message }),
+//     });
+//   } catch (error) {
+//     console.error("Failed to send log to server:", error);
+//   }
+// };
 
 
 export const useWalletConnect = () => {
   const { setWalletAddress } = useWallet();
   const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
-  logToServer("This is a test log from the client.");
+  // logToServer("This is a test log from the client.");
 
   const connectWallet = async () => {
     const wallet = new WalletConnectWallet({
@@ -60,14 +60,14 @@ export const useWalletConnect = () => {
     try {
       const startMessage = "Attempting to connect wallet on desktop...";
   
-      await logToServer(startMessage);
+      // await logToServer(startMessage);
 
-      await logToServer(await wallet.checkConnectStatus());
+      // await logToServer(await wallet.checkConnectStatus());
 
       const data = await wallet.connect();
       const successMessage = `Wallet connect response: ${JSON.stringify(data)}`;
-      await logToServer(successMessage);
-      await logToServer(data)
+      // await logToServer(successMessage);
+      // await logToServer(data)
 
       const address = data.address;
       if (!address) throw new Error("Wallet address not found");
@@ -78,7 +78,7 @@ export const useWalletConnect = () => {
       const errorMessage = `Error during wallet connection: ${error.message}`;
      
       // console.error(errorMessage);
-      await logToServer(errorMessage);
+      // await logToServer(errorMessage);
       // throw error;
     }
   };
